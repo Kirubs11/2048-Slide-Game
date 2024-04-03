@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>2048 Game</title>
+    <style>
+        body{
+          background-image: url(2109.jpg);
+          background-size: cover; 
+	        background-repeat: no-repeat;
+        	background-attachment: fixed;
+	        background-position: center;
+        }
+        .game-board{
+            align-items: center;
+            position:  absolute;
+            top: 12%;
+            left: 12%;
+        }
+        .gameBoard{
+            background-color:rgb(174, 169, 169);
+            width: 420px;
+            height: 420px;
+            position:  fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 15px;
+            outline: rgb(194, 194, 194) solid 2px;
+        }
+        .tile {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            text-align: center;
+            font-size: 35px;
+            font-weight: bold;
+            border-radius: 15px;
+            background-color: #000000;
+            color: rgb(255, 255, 255);
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+          .Heading{
+            text-align: center;
+            color: rgb(252, 244, 244);
+            position: absolute;
+            top: 3px;
+            background-color: none;
+            height: 50px;
+            width: 99%;
+            font-size: 30px;
+          }
+          .Head{
+            text-align: center;
+            color: rgb(252, 244, 244);
+            position: absolute;
+            top: 8%;
+            background-color: none;
+            height: 50px;
+            width: 99%;
+            font-size: 40px;
+            font-family: Georgia;
+          }
+          .button {
+            background-color: #5d655d;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            float: right;
+            margin-top: 40%;
+            margin-right: 10%;            
+            cursor: pointer;
+            border-radius: 20px;
+            font-weight:bolder; 
+            font-family: Tahoma;  
+        }
+        .button:hover{
+          background-color:brown;
+          color: white;
+          font-weight:bolder;
+          font-size: 20px;
+          text-transform: uppercase;
+          font-family: Georgia;
+        }
+    </style>
+  </head>
+  <body>
+    <button class="button" onclick="refreshPage()" >New game</button>
+  <h2 class="Heading">2048  slide  game  Using </h2>
+  <h2 class="Head">BEST FIRST SEARCH </h2>
+    <div class="gameBoard">
+    <div id="game-board" class="game-board"></div>
+    </div>
+    <script>
+        // Set up game board
+var gameBoard = [  [0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0],
+[0, 0, 0, 0, 0]
+];
+
+// Add two initial tiles to game board
+addTile();
+addTile();
+
+// Function to add a new tile to the game board
+function addTile() {
+var emptySpaces = [];
+
+// Find all empty spaces on game board
+for (var i = 0; i < gameBoard.length; i++) {
+  for (var j = 0; j < gameBoard[i].length; j++) {
+    if (gameBoard[i][j] === 0) {
+      emptySpaces.push({ row: i, col: j });
+    }
+  }
+}
+
+// If there are no empty spaces on game board, game is over
+if (emptySpaces.length === 0) {
+  console.log("Game over!");
+  return;
+}
+
+// Choose a random empty space and add a tile with a value of 2 or 4
+var newTileLocation = emptySpaces[Math.floor(Math.random() * emptySpaces.length)];
+gameBoard[newTileLocation.row][newTileLocation.col] = Math.random() < 0.9 ? 2 : 4;
+}
+
+// Function to move tiles to the left
+function moveLeft() {
+for (var i = 0; i < gameBoard.length; i++) {
+  for (var j = 1; j < gameBoard[i].length; j++) {
+    if (gameBoard[i][j] !== 0) {
+      for (var k = j - 1; k >= 0; k--) {
+        if (gameBoard[i][k] === 0) {
+          gameBoard[i][k] = gameBoard[i][j];
+          gameBoard[i][j] = 0;
+          j = k;
+        } else if (gameBoard[i][k] === gameBoard[i][j]) {
+          gameBoard[i][k] *= 2;
+          gameBoard[i][j] = 0;
+          break;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+}
+addTile();
+}
+
+// Function to move tiles to the right
+function moveRight() {
+for (var i = 0; i < gameBoard.length; i++) {
+  for (var j = gameBoard[i].length - 2; j >= 0; j--) {
+    if (gameBoard[i][j] !== 0) {
+      for (var k = j + 1; k < gameBoard[i].length; k++) {
+        if (gameBoard[i][k] === 0) {
+          gameBoard[i][k] = gameBoard[i][j];
+          gameBoard[i][j] = 0;
+          j = k;
+        } else if (gameBoard[i][k] === gameBoard[i][j]) {
+          gameBoard[i][k] *= 2;
+          gameBoard[i][j] = 0;
+          break;
+        } else {
+          break;
+        }
+      }
+    }
+  }
+}
+addTile();
+}
+
+// Function to move tiles up
+function moveUp() {
+for (var j = 0; j < gameBoard[0].length; j++) {
+for (var i = 1; i < gameBoard.length; i++) {
+if (gameBoard[i][j] !== 0) {
+for (var k = i - 1; k >= 0; k--) {
+if (gameBoard[k][j] === 0) {
+gameBoard[k][j] = gameBoard[i][j];
+gameBoard[i][j] = 0;
+i = k;
+} else if (gameBoard[k][j] === gameBoard[i][j]) {
+gameBoard[k][j] *= 2;
+gameBoard[i][j] = 0;
+break;
+} else {
+break;
+}
+}
+}
+}
+}
+addTile();
+}
+
+// Function to move tiles down
+function moveDown() {
+for (var j = 0; j < gameBoard[0].length; j++) {
+for (var i = gameBoard.length - 2; i >= 0; i--) {
+if (gameBoard[i][j] !== 0) {
+for (var k = i + 1; k < gameBoard.length; k++) {
+if (gameBoard[k][j] === 0) {
+gameBoard[k][j] = gameBoard[i][j];
+gameBoard[i][j] = 0;
+i = k;
+} else if (gameBoard[k][j] === gameBoard[i][j]) {
+gameBoard[k][j] *= 2;
+gameBoard[i][j] = 0;
+break;
+} else {
+break;
+}
+}
+}
+}
+}
+addTile();
+}
+
+// Function to update the game board
+function update_BFS() {
+var tiles = document.querySelectorAll(".tile");
+
+// Remove all tiles from game board
+for (var i = 0; i < tiles.length; i++) {
+tiles[i].parentNode.removeChild(tiles[i]);
+}
+
+// Add tiles to game board
+for (var i = 0; i < gameBoard.length; i++) {
+for (var j = 0; j < gameBoard[i].length; j++) {
+if (gameBoard[i][j] !== 0) {
+var tile = document.createElement("div");
+tile.classList.add("tile");
+tile.classList.add("tile-" + gameBoard[i][j]);
+tile.textContent = gameBoard[i][j];
+document.getElementById("game-board").appendChild(tile);
+tile.style.top = i * 80 + "px";
+tile.style.left = j * 80 + "px";
+}
+}
+}
+}
+
+// Add event listeners for arrow keys
+document.addEventListener("keydown", function(event) {
+if (event.keyCode === 37) {
+moveLeft();
+update_BFS();
+} else if (event.keyCode === 38) {
+moveUp();
+update_BFS();
+} else if (event.keyCode === 39) {
+moveRight();
+update_BFS();
+} else if (event.keyCode === 40) {
+moveDown();
+update_BFS();
+}
+});
+
+// Update game board on page load
+document.addEventListener("DOMContentLoaded", function() {
+    // Call update_BFS function here
+    update_BFS();
+  });
+
+    </script>
+    <script>
+      function refreshPage() {
+        location.reload();
+      }
+    </script>
+  </body>
+</html>

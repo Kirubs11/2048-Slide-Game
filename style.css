@@ -1,0 +1,91 @@
+body{
+    background-image: url(./assets/2109.jpg);
+    background-size: cover; 
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center;
+  }
+  .game-board{
+      align-items: center;
+      position:  absolute;
+      top: 12%;
+      left: 12%;
+  }
+  .gameBoard{
+      background-color:rgb(174, 169, 169);
+      width: 420px;
+      height: 420px;
+      position:  fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      border-radius: 15px;
+      outline: rgb(194, 194, 194) solid 2px;
+  }
+  .tile {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      text-align: center;
+      font-size: 35px;
+      font-weight: bold;
+      border-radius: 15px;
+      background-color: #000000;
+      color: rgb(255, 255, 255);
+      top: 70%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .Heading{
+      text-align: center;
+      color: rgb(252, 244, 244);
+      position: absolute;
+      top: 3px;
+      background-color: none;
+      height: 50px;
+      width: 99%;
+      font-size: 30px;
+    }
+    .Head{
+      text-align: center;
+      color: rgb(252, 244, 244);
+      position: absolute;
+      top: 8%;
+      background-color: none;
+      height: 50px;
+      width: 99%;
+      font-size: 40px;
+      font-family: Georgia;
+    }
+    .button {
+      background-color: #5d655d;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      float: right;
+      margin-top: 40%;
+      margin-right: 8%;            
+      cursor: pointer;
+      border-radius: 20px;
+      font-weight:bolder; 
+      font-family: Tahoma;  
+  }
+  .button:hover{
+    background-color:brown;
+    color: white;
+    font-weight:bolder;
+    font-size: 20px;
+    text-transform: uppercase;
+    font-family: Georgia;
+  }
+  .arr{
+    color: aliceblue;
+    padding-top: 41%;
+    display: flex;
+    padding-left: 45%;
+    font-size: 27px;
+  }
